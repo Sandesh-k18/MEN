@@ -63,11 +63,11 @@ app.get("/register", (req, res) => {
 });
 app.post("/register", async (req, res) => {
   //to get data of user
-  const { username, email, password } = req.body;
+  const { Username, Email, Password } = req.body;
   await userModel.create({
-    username: username,
-    email: email,
-    password: password
+    username: Username,
+    email: Email,
+    password: Password
   });
   res.send("User Registered");
   console.log(req.body);
