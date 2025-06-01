@@ -64,13 +64,42 @@ app.get("/register", (req, res) => {
 app.post("/register", async (req, res) => {
   //to get data of user
   const { Username, Email, Password } = req.body;
-  await userModel.create({
+  const newUser = await userModel.create({
     username: Username,
     email: Email,
-    password: Password
+    password: Password,
   });
-  res.send("User Registered");
+  res.send(newUser);
   console.log(req.body);
+});
+
+app.get("/get-user", (req, res) => {
+  userModel
+    .findOne({
+      username: "a",
+    })
+    .then((users) => {
+      res.send(users);
+    });
+});
+
+app.get("/update-user", async (req, res) => {
+  await userModel.findOneAndUpdate(
+    {
+      username: "a",
+    },
+    {
+      email: "a@gmail.com",
+    }
+  );
+  res.send("User Updated");
+});
+
+app.get("/delete-user", async (req, res) => {
+  const deleted = await userModel.findOneAndDelete({
+    username: "a",
+  });
+  res.send(deleted);
 });
 
 app.listen(3000);
